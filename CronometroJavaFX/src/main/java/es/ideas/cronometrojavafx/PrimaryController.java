@@ -38,10 +38,10 @@ public class PrimaryController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //necesario para que el cronometro empiece en 0:0:0 NO TOCAR
+        //Necesario para que el cronometro empiece en 0:0:0
         actualizarCronometro();
         
-        //Esto es el timeline del reloj NO TOCAR
+        //Timeline del reloj (hora actual)
         reloj = new Timeline();
         reloj.setCycleCount(Animation.INDEFINITE);
         reloj.getKeyFrames().add(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
@@ -49,7 +49,7 @@ public class PrimaryController implements Initializable{
         }));
         reloj.play();
         
-        //Esto es el timeline del cronometro HAZ LO QUE QUIERAS xD
+        //Timeline del cronometro
         cronometro = new Timeline();
         cronometro.setCycleCount(Animation.INDEFINITE);
         cronometro.getKeyFrames().add(new KeyFrame(Duration.millis(1000), (ActionEvent evento) -> {
@@ -57,13 +57,20 @@ public class PrimaryController implements Initializable{
             comprobarFormato();
             actualizarCronometro();
         }));
-        cronometro.play();
+        
     }
     
+    //Método para actualizar el label del crónometro.
     public void actualizarCronometro(){
         lbCronometro.setText(horas + ":" + minutos + ":" + segundos);
     }
     
+    /* Método para comprobar el formato del cronómetro.
+       Tiene en cuenta que si el siguiente segundo es el -1, los segundos pasan
+       a ser de nuevo 59 y actualiza los minutos restándole 1.
+       Hace lo mismo con los minutos y las horas, si el siguiente minuto es -1,
+       los minutos pasan a ser de nuevo 59 y se resta 1 hora.
+    */
     public void comprobarFormato(){
         if (segundos==-1){
             segundos=59;
@@ -73,5 +80,21 @@ public class PrimaryController implements Initializable{
             minutos=59;
             horas--;
         }
+    }
+
+    //OnAction para los botones de iniciar, parar y reiniciar cronómetro.
+    @FXML
+    private void iniciarCrono(ActionEvent event) {
+        cronometro.play();
+    }
+
+    @FXML
+    private void pararCrono(ActionEvent event) {
+        cronometro.pause();
+    }
+
+    @FXML
+    private void reiniciarCrono(ActionEvent event) {
+        actualizarCronometro();
     }
 }

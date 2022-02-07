@@ -6,15 +6,15 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Cronometro" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.cronometrojavafx.PrimaryController">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Cronometro" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.cronometrojavafx.PrimaryController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
             <ButtonBar layoutX="15.0" layoutY="320.0" prefHeight="40.0" prefWidth="568.0">
               <buttons>
-                <Button fx:id="btnIniciar" mnemonicParsing="false" text="Iniciar" />
-                  <Button fx:id="btnParar" mnemonicParsing="false" text="Parar" />
-                  <Button fx:id="btnReiniciar" mnemonicParsing="false" text="Reiniciar" />
+                <Button fx:id="btnIniciar" mnemonicParsing="false" onAction="#iniciarCrono" text="Iniciar" />
+                  <Button fx:id="btnParar" mnemonicParsing="false" onAction="#pararCrono" text="Parar" />
+                  <Button fx:id="btnReiniciar" mnemonicParsing="false" onAction="#reiniciarCrono" text="Reiniciar" />
               </buttons>
             </ButtonBar>
             <Label fx:id="lbCronometro" layoutX="267.0" layoutY="179.0" text="Cronometro" />
