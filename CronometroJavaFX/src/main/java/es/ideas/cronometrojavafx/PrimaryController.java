@@ -46,9 +46,16 @@ public class PrimaryController implements Initializable{
     private int horas;
     
     private final SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
-  /* Utilizamos una SimpleBooleanProperty para controlar el botonIniciar de una
+  /* Utilizamos una SimpleBooleanProperty para controlar los botones de una
     forma más comoda */
-    private SimpleBooleanProperty booleanIniciar = new SimpleBooleanProperty(true);
+    private SimpleBooleanProperty booleanIniciar = 
+            new SimpleBooleanProperty(true);
+    private SimpleBooleanProperty booleanParar = 
+            new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty booleanReanudar = 
+            new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty booleanReiniciar = 
+            new SimpleBooleanProperty(false);
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -98,6 +105,24 @@ public class PrimaryController implements Initializable{
                 or(tfMinutos.textProperty().isEmpty().
                 or(tfHoras.textProperty().isEmpty()    
                 )));
+        
+        btnParar.disableProperty().
+                bind(tfSegundos.textProperty().isEmpty().
+                or(tfMinutos.textProperty().isEmpty().
+                or(tfHoras.textProperty().isEmpty().    
+                or(booleanParar.not()))));
+                
+        btnReanudar.disableProperty().
+                bind(tfSegundos.textProperty().isEmpty().
+                or(tfMinutos.textProperty().isEmpty().
+                or(tfHoras.textProperty().isEmpty().    
+                or(booleanReanudar.not()))));
+        
+        btnReiniciar.disableProperty().
+                bind(tfSegundos.textProperty().isEmpty().
+                or(tfMinutos.textProperty().isEmpty().
+                or(tfHoras.textProperty().isEmpty().    
+                or(booleanReiniciar.not()))));
     }
       
     /* Método para comprobar el formato del cronómetro.
@@ -149,6 +174,8 @@ public class PrimaryController implements Initializable{
                 or(booleanIniciar.not()));
         
         cronometro.play();
+        booleanParar.set(true);
+        booleanReiniciar.set(true);
         tfSegundos.setDisable(true);
         tfMinutos.setDisable(true);
         tfHoras.setDisable(true);
@@ -157,12 +184,16 @@ public class PrimaryController implements Initializable{
     //Método para pausar el cronómetro
     @FXML
     private void pararCrono(ActionEvent event) {
+        booleanParar.set(false);
+        booleanReanudar.set(true);
         cronometro.pause();
     }
     
     //Método para reanudar el cronómetro
     @FXML
     private void reanudarCrono(ActionEvent event) {
+        booleanReanudar.set(false);
+        booleanParar.set(true);
         cronometro.play();
     }
 
@@ -172,10 +203,14 @@ public class PrimaryController implements Initializable{
         segundos = 0; tfSegundos.setText(""); tfSegundos.setDisable(false);
         minutos = 0; tfMinutos.setText(""); tfMinutos.setDisable(false);
         horas = 0; tfHoras.setText(""); tfHoras.setDisable(false);
-                
-        booleanIniciar.set(true);
+               
         cronometro.stop();
         comprobarFormato();
         actualizarCronometro();
+        
+        booleanIniciar.set(true);
+        booleanParar.set(false);
+        booleanReanudar.set(false);
+        booleanReiniciar.set(false);
     }
 }
