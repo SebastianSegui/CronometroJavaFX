@@ -21,8 +21,8 @@ public class App extends Application {
         stage.show();
     }
     
-    //Métodos para obtener de los recursos el fxml y cargarlos en la escena 
-    //en el metodo start.
+  /*Métodos para obtener de los recursos el fxml y cargarlos en la escena 
+    en el metodo start. */
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
