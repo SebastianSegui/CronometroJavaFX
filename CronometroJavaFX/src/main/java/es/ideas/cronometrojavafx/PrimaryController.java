@@ -17,6 +17,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 public class PrimaryController implements Initializable{
 
     @FXML
@@ -46,6 +51,7 @@ public class PrimaryController implements Initializable{
     private int horas;
     
     private final SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
+    
   /* Utilizamos una SimpleBooleanProperty para controlar los botones de una
     forma más comoda */
     private SimpleBooleanProperty booleanIniciar = 
@@ -82,13 +88,13 @@ public class PrimaryController implements Initializable{
         tfSegundos.textProperty().addListener((ObservableValue<? extends 
                 String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d*")) {
-                tfHoras.setText(newValue.replaceAll("[^\\d]", ""));
+                tfSegundos.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
         tfMinutos.textProperty().addListener((ObservableValue<? extends 
                 String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d*")) {
-                tfHoras.setText(newValue.replaceAll("[^\\d]", ""));
+                tfMinutos.setText(newValue.replaceAll("[^\\d]", ""));
             }
         }); 
         tfHoras.textProperty().addListener((ObservableValue<? extends 
@@ -143,14 +149,17 @@ public class PrimaryController implements Initializable{
         }
         
         if(horas == 0 && minutos == 0 && segundos == 0){
+            reproducirSonido();
+            booleanParar.set(false);
             cronometro.stop();
-            //Añadir reproducción de sonido o alerta
         }
     }
    
   /*Método para actualizar la label del crónometro.
     Tiene en cuenta que si las horas, minutos o segundos son inferiores a 10,
-    nos añade un 0 delante del número para que de un aspecto más real */
+    nos añade un 0 delante del número para que de un aspecto más real 
+    NOTA: Los 0 delante del numero se consiguen mediante el uso de un 
+    operador ternario, que vendria a ser como un if else */
     public void actualizarCronometro(){
         String texto = (horas<=9?"0":"")+horas+":"+(minutos<=9?"0":"")+minutos+":"+(segundos <= 9?"0":"")+segundos;
         lbCronometro.setText(texto);
@@ -212,5 +221,20 @@ public class PrimaryController implements Initializable{
         booleanParar.set(false);
         booleanReanudar.set(false);
         booleanReiniciar.set(false);
+    }
+    
+    private void reproducirSonido(){
+        try {
+            
+        File archivo = new File("src/main/resources/es/ideas/sounds/alarm.wav");
+        
+        AudioInputStream sonido = AudioSystem.getAudioInputStream(archivo);
+        
+        Clip clip;
+        clip = AudioSystem.getClip();
+        clip.open(sonido);
+        clip.setFramePosition(0);
+        clip.start();
+        }catch (Exception ex){ex.printStackTrace();}
     }
 }
