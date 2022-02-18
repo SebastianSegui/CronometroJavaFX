@@ -1,0 +1,54 @@
+#parent {
+    -fx-background-color: #000000;
+}
+
+#cronometro {
+    -fx-font-family: 'Courier New';
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 100px;
+    -fx-background-color: #000000;
+    -fx-border-width: 5px;
+    -fx-border-color: #ffffff;
+    -fx-border-radius: 10 10 10 10;
+}
+
+#hora {
+    -fx-text-fill: #ffffff;
+}
+
+#lbHoras {
+    -fx-text-fill: #ffffff;
+}
+#tfHoras {
+    -fx-background-color: #D3D3D3;
+}
+
+#lbMinutos {
+    -fx-text-fill: #ffffff;
+}
+#tfMinutos {
+    -fx-background-color: #D3D3D3;
+}
+
+#lbSegundos {
+    -fx-text-fill: #ffffff;
+}
+#tfSegundos {
+    -fx-background-color: #D3D3D3;
+}
+
+#btnIniciar {
+    -fx-background-color: #D3D3D3;
+}
+
+#btnParar {
+    -fx-background-color: #D3D3D3;
+}
+
+#btnReiniciar {
+    -fx-background-color: #D3D3D3;
+}
+
+#btnReanudar {
+    -fx-background-color: #D3D3D3;
+}

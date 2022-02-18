@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
 import java.io.File;
+import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;

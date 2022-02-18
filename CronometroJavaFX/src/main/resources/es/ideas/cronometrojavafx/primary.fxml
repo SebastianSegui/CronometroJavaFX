@@ -13,11 +13,11 @@
 
 <TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Cronometro" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.cronometrojavafx.PrimaryController">
   <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+    <AnchorPane id="parent" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/style.css">
          <children>
             <ButtonBar layoutX="231.0" layoutY="319.0" prefHeight="40.0" prefWidth="245.0" AnchorPane.bottomAnchor="5.0">
               <buttons>
-                <Button fx:id="btnIniciar" mnemonicParsing="false" onAction="#iniciarCrono" text="Iniciar">
+                <Button id="btnIniciar" fx:id="btnIniciar" mnemonicParsing="false" onAction="#iniciarCrono" text="Iniciar">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -25,7 +25,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="btnParar" mnemonicParsing="false" onAction="#pararCrono" text="Parar">
+                  <Button id="btnParar" fx:id="btnParar" mnemonicParsing="false" onAction="#pararCrono" text="Parar">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -33,7 +33,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="btnReanudar" mnemonicParsing="false" onAction="#reanudarCrono" text="Reanudar">
+                  <Button id="btnReanudar" fx:id="btnReanudar" mnemonicParsing="false" onAction="#reanudarCrono" text="Reanudar">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -41,7 +41,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="btnReiniciar" mnemonicParsing="false" onAction="#reiniciarCrono" text="Reiniciar">
+                  <Button id="btnReiniciar" fx:id="btnReiniciar" mnemonicParsing="false" onAction="#reiniciarCrono" text="Reiniciar">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -51,7 +51,7 @@
                      </graphic></Button>
               </buttons>
             </ButtonBar>
-            <Label fx:id="lbCronometro" alignment="CENTER" contentDisplay="CENTER" layoutX="226.0" layoutY="109.0" text="00:00:00" textAlignment="CENTER">
+            <Label id="cronometro" fx:id="lbCronometro" alignment="CENTER" contentDisplay="CENTER" layoutX="39.0" layoutY="96.0" text="00:00:00" textAlignment="CENTER">
                <font>
                   <Font size="40.0" />
                </font>
@@ -59,17 +59,17 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding>
             </Label>
-            <Label fx:id="lbReloj" layoutX="496.0" layoutY="14.0" text="Hora actual">
+            <Label id="hora" fx:id="lbReloj" layoutX="496.0" layoutY="14.0" text="Hora actual">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="tfHoras" layoutX="15.0" layoutY="326.0" prefHeight="26.0" prefWidth="44.0" />
-            <TextField fx:id="tfMinutos" layoutX="76.0" layoutY="327.0" prefHeight="26.0" prefWidth="44.0" />
-            <TextField fx:id="tfSegundos" layoutX="141.0" layoutY="327.0" prefHeight="26.0" prefWidth="44.0" />
-            <Label layoutX="21.0" layoutY="302.0" text="Horas" />
-            <Label layoutX="76.0" layoutY="302.0" text="Minutos" />
-            <Label layoutX="137.0" layoutY="302.0" text="Segundos" />
+            <TextField id="tfHoras" fx:id="tfHoras" layoutX="15.0" layoutY="326.0" prefHeight="26.0" prefWidth="44.0" />
+            <TextField id="tfMinutos" fx:id="tfMinutos" layoutX="76.0" layoutY="327.0" prefHeight="26.0" prefWidth="44.0" />
+            <TextField id="tfSegundos" fx:id="tfSegundos" layoutX="137.0" layoutY="327.0" prefHeight="26.0" prefWidth="44.0" />
+            <Label id="lbHoras" layoutX="21.0" layoutY="302.0" text="Horas" />
+            <Label id="lbMinutos" layoutX="76.0" layoutY="302.0" text="Minutos" />
+            <Label id="lbSegundos" layoutX="133.0" layoutY="302.0" text="Segundos" />
          </children></AnchorPane>
   </content>
 </TitledPane>
