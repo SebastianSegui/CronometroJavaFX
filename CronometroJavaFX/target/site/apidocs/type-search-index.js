@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"es.ideas.cronometrojavafx","l":"App"},{"p":"es.ideas.cronometrojavafx","l":"PrimaryController"}];updateSearchResults();

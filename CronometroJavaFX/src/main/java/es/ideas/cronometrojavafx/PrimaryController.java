@@ -16,13 +16,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
-
 import java.io.File;
-import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/**
+ * Clase controladora de la aplicacion.
+ * 
+ * @author Alex
+ * @see <a href="https://github.com/iAleZz"> Repositorio
+ *      de Alex</a>
+ * @author Sebastián
+ * @see <a href="https://github.com/SebastianSegui"> Repositorio
+ *      de Sebastián</a>
+ * @see <a href="https://github.com/SebastianSegui/ColoresJavaFX"> Repositorio
+ *      del proyecto</a>
+ * 
+ * Clase App: {@link es.ideas.cronometrojavafx.App}.
+ */
 public class PrimaryController implements Initializable{
 
     @FXML
@@ -64,6 +76,12 @@ public class PrimaryController implements Initializable{
     private SimpleBooleanProperty booleanReiniciar = 
             new SimpleBooleanProperty(false);
     
+    /**
+     * Encargado de cargar todos los recursos y funcionalidades de la app.
+     * 
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //Timeline del cronómetro
@@ -132,12 +150,14 @@ public class PrimaryController implements Initializable{
                 or(booleanReiniciar.not()))));
     }
       
-    /* Método para comprobar el formato del cronómetro.
-       Tiene en cuenta que si el siguiente segundo es el -1, los segundos pasan
-       a ser de nuevo 59 y actualiza los minutos restándole 1.
-       Hace lo mismo con los minutos y las horas, si el siguiente minuto es -1,
-       los minutos pasan a ser de nuevo 59 y se resta 1 hora.
-    */
+    /**
+     * Método para comprobar el formato del cronómetro.
+     * Tiene en cuenta que si el siguiente segundo es el -1, los segundos pasan
+     * a ser de nuevo 59 y actualiza los minutos restándole 1.
+     * Hace lo mismo con los minutos y las horas, si el siguiente minuto es -1,
+     * los minutos pasan a ser de nuevo 59 y se resta 1 hora.
+     * También reproduce un sonido y finaliza el cronómetro cuando llega a 0.
+     */
     public void comprobarFormato(){
         if (segundos==-1){
             segundos=59;
@@ -156,11 +176,13 @@ public class PrimaryController implements Initializable{
         }
     }
    
-  /*Método para actualizar la label del crónometro.
-    Tiene en cuenta que si las horas, minutos o segundos son inferiores a 10,
-    nos añade un 0 delante del número para que de un aspecto más real 
-    NOTA: Los 0 delante del numero se consiguen mediante el uso de un 
-    operador ternario, que vendria a ser como un if else */
+    /**
+     * Método para actualizar la label del crónometro.
+     * Tiene en cuenta que si las horas, minutos o segundos son inferiores a 10,
+     * nos añade un 0 delante del número para que de un aspecto más real 
+     * NOTA: Los 0 delante del numero se consiguen mediante el uso de un 
+     * operador ternario, que vendria a ser como un if else
+     */
     public void actualizarCronometro(){
         String texto = (horas<=9?"0":"")+horas+":"+(minutos<=9?"0":"")+minutos+":"+(segundos <= 9?"0":"")+segundos;
         lbCronometro.setText(texto);
