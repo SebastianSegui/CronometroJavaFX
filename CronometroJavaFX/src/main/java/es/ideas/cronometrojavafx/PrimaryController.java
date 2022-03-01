@@ -237,7 +237,6 @@ public class PrimaryController implements Initializable{
         horas = 0; tfHoras.setText(""); tfHoras.setDisable(false);
                
         cronometro.stop();
-        comprobarFormato();
         actualizarCronometro();
         
         booleanIniciar.set(true);
