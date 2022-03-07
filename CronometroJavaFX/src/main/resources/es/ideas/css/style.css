@@ -1,11 +1,16 @@
+@font-face{
+    src: url('../font/DS-DIGI.TTF');
+}
+
 #parent {
     -fx-background-color: #000000;
 }
 
 #cronometro {
-    -fx-font-family: 'Courier New';
+    
+    -fx-font-family: "DS-Digital";
     -fx-text-fill: #ffffff;
-    -fx-font-size: 100px;
+    -fx-font-size: 125px;
     -fx-background-color: #000000;
     -fx-border-width: 5px;
     -fx-border-color: #ffffff;
@@ -13,42 +18,34 @@
 }
 
 #hora {
+    -fx-font-family: "DS-Digital";
+    -fx-font-size: 25px;
     -fx-text-fill: #ffffff;
 }
 
 #lbHoras {
+    -fx-font-family: "DS-Digital";
     -fx-text-fill: #ffffff;
 }
 #tfHoras {
+    -fx-font-family: "DS-Digital";
     -fx-background-color: #D3D3D3;
 }
 
 #lbMinutos {
+    -fx-font-family: "DS-Digital";
     -fx-text-fill: #ffffff;
 }
 #tfMinutos {
+    -fx-font-family: "DS-Digital";
     -fx-background-color: #D3D3D3;
 }
 
 #lbSegundos {
+    -fx-font-family: "DS-Digital";
     -fx-text-fill: #ffffff;
 }
 #tfSegundos {
-    -fx-background-color: #D3D3D3;
-}
-
-#btnIniciar {
-    -fx-background-color: #D3D3D3;
-}
-
-#btnParar {
-    -fx-background-color: #D3D3D3;
-}
-
-#btnReiniciar {
-    -fx-background-color: #D3D3D3;
-}
-
-#btnReanudar {
+    -fx-font-family: "DS-Digital";
     -fx-background-color: #D3D3D3;
 }

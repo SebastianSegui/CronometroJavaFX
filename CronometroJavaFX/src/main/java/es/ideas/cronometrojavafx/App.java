@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.scene.text.Font;
 
 /**
  * Clase principal de la aplicación encargada de crear el escenario, la escena 
@@ -34,10 +35,11 @@ public class App extends Application {
      * @throws IOException
      */
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException {       
         scene = new Scene(loadFXML("primary"), 600, 400);
+        stage.setTitle("Temporizador");
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
     

@@ -11,55 +11,50 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Cronometro" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.cronometrojavafx.PrimaryController">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.cronometrojavafx.PrimaryController">
   <content>
     <AnchorPane id="parent" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/style.css">
          <children>
-            <ButtonBar layoutX="231.0" layoutY="319.0" prefHeight="40.0" prefWidth="245.0" AnchorPane.bottomAnchor="5.0">
+            <ButtonBar layoutX="281.0" layoutY="311.0" prefHeight="58.0" prefWidth="303.0" AnchorPane.bottomAnchor="5.0">
               <buttons>
-                <Button id="btnIniciar" fx:id="btnIniciar" mnemonicParsing="false" onAction="#iniciarCrono" text="Iniciar">
+                <Button id="btnIniciar" fx:id="btnIniciar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#iniciarCrono" text="Iniciar">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/play.png" />
                            </image>
                         </ImageView>
-                     </graphic></Button>
-                  <Button id="btnParar" fx:id="btnParar" mnemonicParsing="false" onAction="#pararCrono" text="Parar">
+                     </graphic>
+                  </Button>
+                  <Button id="btnParar" fx:id="btnParar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#pararCrono" text="Parar">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/pause.png" />
                            </image>
                         </ImageView>
-                     </graphic></Button>
-                  <Button id="btnReanudar" fx:id="btnReanudar" mnemonicParsing="false" onAction="#reanudarCrono" text="Reanudar">
+                     </graphic>
+                  </Button>
+                  <Button id="btnReiniciar" fx:id="btnReiniciar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#reiniciarCrono" text="Reiniciar">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/resume.png" />
                            </image>
                         </ImageView>
-                     </graphic></Button>
-                  <Button id="btnReiniciar" fx:id="btnReiniciar" mnemonicParsing="false" onAction="#reiniciarCrono" text="Reiniciar">
-                     <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/stop.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
+                     </graphic>
+                  </Button>
               </buttons>
             </ButtonBar>
-            <Label id="cronometro" fx:id="lbCronometro" alignment="CENTER" contentDisplay="CENTER" layoutX="39.0" layoutY="96.0" text="00:00:00" textAlignment="CENTER">
+            <Label id="cronometro" fx:id="lbCronometro" alignment="CENTER" contentDisplay="CENTER" layoutX="68.0" layoutY="93.0" text="00:00:00" textAlignment="CENTER" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="75.0">
                <font>
                   <Font size="40.0" />
                </font>
                <padding>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </Label>
-            <Label id="hora" fx:id="lbReloj" layoutX="496.0" layoutY="14.0" text="Hora actual">
+            <Label id="hora" fx:id="lbReloj" layoutX="455.0" layoutY="14.0" text="Hora actual">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -70,6 +65,13 @@
             <Label id="lbHoras" layoutX="21.0" layoutY="302.0" text="Horas" />
             <Label id="lbMinutos" layoutX="76.0" layoutY="302.0" text="Minutos" />
             <Label id="lbSegundos" layoutX="133.0" layoutY="302.0" text="Segundos" />
-         </children></AnchorPane>
+            <Button id="btnAñadir" fx:id="btnAñadir" contentDisplay="GRAPHIC_ONLY" layoutX="198.0" layoutY="328.0" mnemonicParsing="false" onAction="#añadirACrono" prefHeight="25.0" prefWidth="53.0" text="Añadir" />
+            <ImageView fitHeight="26.0" fitWidth="33.0" layoutX="210.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/plus.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
   </content>
 </TitledPane>

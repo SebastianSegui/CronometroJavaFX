@@ -8,7 +8,6 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import java.io.File;
+import javafx.beans.property.BooleanProperty;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -44,7 +44,7 @@ public class PrimaryController implements Initializable{
     @FXML
     private Button btnReiniciar;
     @FXML
-    private Button btnReanudar;
+    private Button btnAñadir;
     @FXML
     private Label lbCronometro;
     @FXML
@@ -67,13 +67,11 @@ public class PrimaryController implements Initializable{
     
   /* Utilizamos una SimpleBooleanProperty para controlar los botones de una
     forma más comoda */
-    private SimpleBooleanProperty booleanIniciar = 
+    private BooleanProperty booleanIniciar = 
             new SimpleBooleanProperty(true);
-    private SimpleBooleanProperty booleanParar = 
+    private BooleanProperty booleanParar = 
             new SimpleBooleanProperty(false);
-    private SimpleBooleanProperty booleanReanudar = 
-            new SimpleBooleanProperty(false);
-    private SimpleBooleanProperty booleanReiniciar = 
+    private BooleanProperty booleanReiniciar = 
             new SimpleBooleanProperty(false);
     
     /**
@@ -103,45 +101,41 @@ public class PrimaryController implements Initializable{
         }));
         reloj.play();
         
-        //Controlamos que los TextField admitan solo números
-        tfSegundos.textProperty().addListener((ObservableValue<? extends 
-                String> observable, String oldValue, String newValue) -> {
+        /* Controlamos que los TextField admitan solo números mediante la 
+        expresion regular "\\d*", que comprueba que el valor insertado no sea
+        un digito o decimal. En caso de no serlo, lo reemplaza con un "" */
+        tfSegundos.textProperty().addListener
+        ((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 tfSegundos.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        tfMinutos.textProperty().addListener((ObservableValue<? extends 
-                String> observable, String oldValue, String newValue) -> {
+        tfMinutos.textProperty().addListener
+        ((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 tfMinutos.setText(newValue.replaceAll("[^\\d]", ""));
             }
         }); 
-        tfHoras.textProperty().addListener((ObservableValue<? extends 
-                String> observable, String oldValue, String newValue) -> {
+        tfHoras.textProperty().addListener
+        ((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 tfHoras.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });        
         
-        /* Deshabilita el botón de Añadir cuando los parámetros
-           horas, minutos y segundos no se han introducido aún*/
-        btnIniciar.disableProperty().
-                bind(tfSegundos.textProperty().isEmpty().
-                or(tfMinutos.textProperty().isEmpty().
-                or(tfHoras.textProperty().isEmpty()    
-                )));
+        /*Bind para habilitar/deshabilitar el botón Iniciar teniendo en cuenta
+          si los textfield están rellenados o no */
+        btnIniciar.disableProperty().bind((
+                tfSegundos.textProperty().isEmpty()).
+                or(tfMinutos.textProperty().isEmpty()).
+                or(tfHoras.textProperty().isEmpty()).
+                or(booleanIniciar.not()));
         
         btnParar.disableProperty().
                 bind(tfSegundos.textProperty().isEmpty().
                 or(tfMinutos.textProperty().isEmpty().
                 or(tfHoras.textProperty().isEmpty().    
                 or(booleanParar.not()))));
-                
-        btnReanudar.disableProperty().
-                bind(tfSegundos.textProperty().isEmpty().
-                or(tfMinutos.textProperty().isEmpty().
-                or(tfHoras.textProperty().isEmpty().    
-                or(booleanReanudar.not()))));
         
         btnReiniciar.disableProperty().
                 bind(tfSegundos.textProperty().isEmpty().
@@ -184,28 +178,25 @@ public class PrimaryController implements Initializable{
      * operador ternario, que vendria a ser como un if else
      */
     public void actualizarCronometro(){
-        String texto = (horas<=9?"0":"")+horas+":"+(minutos<=9?"0":"")+minutos+":"+(segundos <= 9?"0":"")+segundos;
+        String texto = (horas<=9?"0":"")+horas+":"+
+                (minutos<=9?"0":"")+minutos+":"+
+                (segundos <= 9?"0":"")+segundos;
         lbCronometro.setText(texto);
     }
        
-    //OnAction para los botones de iniciar, parar y reiniciar cronómetro.
-    @FXML
-    private void iniciarCrono(ActionEvent event) {
+    //OnAction para botones de añadir, iniciar, parar y reiniciar cronómetro.
+     @FXML
+    private void añadirACrono(ActionEvent event) {
         //Convierte los números introducidos en los textfield a "int"
         segundos = Integer.parseInt(tfSegundos.getText());
         minutos = Integer.parseInt(tfMinutos.getText());
         horas = Integer.parseInt(tfHoras.getText());
-        
-        /*Bind para habilitar/deshabilitar el botón Iniciar teniendo en cuenta
-          si los textfield están rellenados o no */
-        booleanIniciar.set(false);
-        btnIniciar.disableProperty().bind((
-                tfSegundos.textProperty().isEmpty()).
-                or(tfMinutos.textProperty().isEmpty()).
-                or(tfHoras.textProperty().isEmpty()).
-                or(booleanIniciar.not()));
-        
+    }
+    
+    @FXML
+    private void iniciarCrono(ActionEvent event) {
         cronometro.play();
+        booleanIniciar.set(false);
         booleanParar.set(true);
         booleanReiniciar.set(true);
         tfSegundos.setDisable(true);
@@ -217,16 +208,8 @@ public class PrimaryController implements Initializable{
     @FXML
     private void pararCrono(ActionEvent event) {
         booleanParar.set(false);
-        booleanReanudar.set(true);
+        booleanIniciar.set(true);
         cronometro.pause();
-    }
-    
-    //Método para reanudar el cronómetro
-    @FXML
-    private void reanudarCrono(ActionEvent event) {
-        booleanReanudar.set(false);
-        booleanParar.set(true);
-        cronometro.play();
     }
 
     //Método para resetear el cronómetro y poner todo a 0 como en un inicio.
@@ -241,7 +224,6 @@ public class PrimaryController implements Initializable{
         
         booleanIniciar.set(true);
         booleanParar.set(false);
-        booleanReanudar.set(false);
         booleanReiniciar.set(false);
     }
     
