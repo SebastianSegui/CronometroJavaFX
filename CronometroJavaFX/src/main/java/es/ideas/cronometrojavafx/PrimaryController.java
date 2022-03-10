@@ -200,7 +200,7 @@ public class PrimaryController implements Initializable{
         actualizarCronometro();
         activarBotones();
         
-        booleanIniciar.set(true);
+        booleanIniciar.set(false);
         booleanParar.set(false);
         booleanReiniciar.set(false);
     }

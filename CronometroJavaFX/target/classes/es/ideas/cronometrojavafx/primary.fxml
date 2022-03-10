@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.cronometrojavafx.PrimaryController">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ideas.cronometrojavafx.PrimaryController">
   <content>
-    <AnchorPane id="parent" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/style.css">
+    <AnchorPane id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../css/style.css">
          <children>
-            <ButtonBar layoutX="165.0" layoutY="288.0" prefHeight="58.0" prefWidth="262.0">
+            <ButtonBar buttonMinWidth="75.0" layoutX="159.0" layoutY="289.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="260.0" AnchorPane.bottomAnchor="10.0">
               <buttons>
                 <Button id="btnIniciar" fx:id="btnIniciar" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#iniciarCrono" text="Iniciar">
                      <graphic>
@@ -53,7 +53,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </Label>
-            <Label id="hora" fx:id="lbReloj" layoutX="455.0" layoutY="14.0" text="Hora actual" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+            <Label id="hora" fx:id="lbReloj" layoutX="455.0" layoutY="14.0" text="00:00:00" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
