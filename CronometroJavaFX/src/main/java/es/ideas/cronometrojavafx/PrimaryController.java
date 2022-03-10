@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import java.io.File;
 import javafx.beans.property.BooleanProperty;
@@ -44,18 +43,22 @@ public class PrimaryController implements Initializable{
     @FXML
     private Button btnReiniciar;
     @FXML
-    private Button btnAñadir;
-    @FXML
     private Label lbCronometro;
     @FXML
     private Label lbReloj;
     @FXML
-    private TextField tfHoras;
+    private Button btnSubirHoras;
     @FXML
-    private TextField tfMinutos;
+    private Button btnBajarHoras;
     @FXML
-    private TextField tfSegundos;
-    
+    private Button btnSubirMinutos;
+    @FXML
+    private Button btnBajarMinutos;
+    @FXML
+    private Button btnSubirSegundos;
+    @FXML
+    private Button btnBajarSegundos;
+
     private Timeline cronometro;
     private Timeline reloj;
     
@@ -68,7 +71,7 @@ public class PrimaryController implements Initializable{
   /* Utilizamos una SimpleBooleanProperty para controlar los botones de una
     forma más comoda */
     private BooleanProperty booleanIniciar = 
-            new SimpleBooleanProperty(true);
+            new SimpleBooleanProperty(false);
     private BooleanProperty booleanParar = 
             new SimpleBooleanProperty(false);
     private BooleanProperty booleanReiniciar = 
@@ -100,48 +103,17 @@ public class PrimaryController implements Initializable{
             lbReloj.setText(formato.format(new Date()));
         }));
         reloj.play();
+              
         
-        /* Controlamos que los TextField admitan solo números mediante la 
-        expresion regular "\\d*", que comprueba que el valor insertado no sea
-        un digito o decimal. En caso de no serlo, lo reemplaza con un "" */
-        tfSegundos.textProperty().addListener
-        ((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                tfSegundos.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        tfMinutos.textProperty().addListener
-        ((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                tfMinutos.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        }); 
-        tfHoras.textProperty().addListener
-        ((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                tfHoras.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });        
-        
-        /*Bind para habilitar/deshabilitar el botón Iniciar teniendo en cuenta
-          si los textfield están rellenados o no */
-        btnIniciar.disableProperty().bind((
-                tfSegundos.textProperty().isEmpty()).
-                or(tfMinutos.textProperty().isEmpty()).
-                or(tfHoras.textProperty().isEmpty()).
-                or(booleanIniciar.not()));
+        /*Bind para habilitar/deshabilitar el botón Iniciar */
+        btnIniciar.disableProperty().
+                bind(booleanIniciar.not());
         
         btnParar.disableProperty().
-                bind(tfSegundos.textProperty().isEmpty().
-                or(tfMinutos.textProperty().isEmpty().
-                or(tfHoras.textProperty().isEmpty().    
-                or(booleanParar.not()))));
+                bind(booleanParar.not());
         
         btnReiniciar.disableProperty().
-                bind(tfSegundos.textProperty().isEmpty().
-                or(tfMinutos.textProperty().isEmpty().
-                or(tfHoras.textProperty().isEmpty().    
-                or(booleanReiniciar.not()))));
+                bind(booleanReiniciar.not());
     }
       
     /**
@@ -153,20 +125,29 @@ public class PrimaryController implements Initializable{
      * También reproduce un sonido y finaliza el cronómetro cuando llega a 0.
      */
     public void comprobarFormato(){
-        if (segundos==-1){
+        if(segundos==-1){
             segundos=59;
             minutos--;
         }
         
-        if (minutos==-1){
+        if(minutos==-1){
             minutos=59;
             horas--;
         }
         
         if(horas == 0 && minutos == 0 && segundos == 0){
             reproducirSonido();
-            booleanParar.set(false);
+            segundos = 0;
+            minutos = 0;
+            horas = 0;
+               
             cronometro.stop();
+            actualizarCronometro();
+            activarBotones();
+            
+            booleanIniciar.set(true);
+            booleanParar.set(false);
+            booleanReiniciar.set(false);
         }
     }
    
@@ -182,26 +163,21 @@ public class PrimaryController implements Initializable{
                 (minutos<=9?"0":"")+minutos+":"+
                 (segundos <= 9?"0":"")+segundos;
         lbCronometro.setText(texto);
+        
+        if(segundos == 0 && minutos == 0 && horas == 0){
+            booleanIniciar.set(false);
+        } else if(cronometro.getStatus().toString().equals("STOPPED")) {
+            booleanIniciar.set(true);
+        }
     }
-       
-    //OnAction para botones de añadir, iniciar, parar y reiniciar cronómetro.
-     @FXML
-    private void añadirACrono(ActionEvent event) {
-        //Convierte los números introducidos en los textfield a "int"
-        segundos = Integer.parseInt(tfSegundos.getText());
-        minutos = Integer.parseInt(tfMinutos.getText());
-        horas = Integer.parseInt(tfHoras.getText());
-    }
-    
+        
     @FXML
     private void iniciarCrono(ActionEvent event) {
         cronometro.play();
         booleanIniciar.set(false);
         booleanParar.set(true);
         booleanReiniciar.set(true);
-        tfSegundos.setDisable(true);
-        tfMinutos.setDisable(true);
-        tfHoras.setDisable(true);
+        desactivarBotones();
     }
 
     //Método para pausar el cronómetro
@@ -215,16 +191,35 @@ public class PrimaryController implements Initializable{
     //Método para resetear el cronómetro y poner todo a 0 como en un inicio.
     @FXML
     private void reiniciarCrono(ActionEvent event) {
-        segundos = 0; tfSegundos.setText(""); tfSegundos.setDisable(false);
-        minutos = 0; tfMinutos.setText(""); tfMinutos.setDisable(false);
-        horas = 0; tfHoras.setText(""); tfHoras.setDisable(false);
+        segundos = 0;
+        minutos = 0;
+        horas = 0;
                
         cronometro.stop();
         actualizarCronometro();
+        activarBotones();
         
         booleanIniciar.set(true);
         booleanParar.set(false);
         booleanReiniciar.set(false);
+    }
+    
+    private void activarBotones(){
+            btnSubirHoras.setDisable(false);
+            btnSubirMinutos.setDisable(false);
+            btnSubirSegundos.setDisable(false);
+            btnBajarHoras.setDisable(false);
+            btnBajarMinutos.setDisable(false);
+            btnBajarSegundos.setDisable(false); 
+    }
+    
+    private void desactivarBotones(){
+            btnSubirHoras.setDisable(true);
+            btnSubirMinutos.setDisable(true);
+            btnSubirSegundos.setDisable(true);
+            btnBajarHoras.setDisable(true);
+            btnBajarMinutos.setDisable(true);
+            btnBajarSegundos.setDisable(true); 
     }
     
     private void reproducirSonido(){
@@ -240,5 +235,65 @@ public class PrimaryController implements Initializable{
         clip.setFramePosition(0);
         clip.start();
         }catch (Exception ex){ex.printStackTrace();}
+    }
+
+    @FXML
+    private void subirHoras(ActionEvent event) {
+        if (horas < 24 && horas >= 0) {
+            horas++;
+            actualizarCronometro();    
+        } 
+        if (horas == 24 && minutos == 59 && segundos == 59){
+            horas--;
+            actualizarCronometro();    
+        }
+    }
+
+    @FXML
+    private void bajarHoras(ActionEvent event) {
+        if (horas < 25 && horas > 0) {
+            horas--;
+            actualizarCronometro();    
+        } 
+    }
+
+    @FXML
+    private void subirMinutos(ActionEvent event) {
+        if (minutos < 59 && minutos >= 0) {
+            minutos++;
+            actualizarCronometro();    
+        }
+        if (horas == 24 && minutos == 59 && segundos == 59){
+            horas--;
+            actualizarCronometro();    
+        }
+    }
+
+    @FXML
+    private void bajarMinutos(ActionEvent event) {
+        if (minutos < 60 && minutos > 0) {
+            minutos--;
+            actualizarCronometro();    
+        }        
+    }
+
+    @FXML
+    private void subirSegundos(ActionEvent event) {
+        if (segundos < 59 && segundos >= 0) {
+            segundos++;
+            actualizarCronometro();    
+        }
+        if (horas == 24 && minutos == 59 && segundos == 59){
+            horas--;
+            actualizarCronometro();    
+        }        
+    }
+
+    @FXML
+    private void bajarSegundos(ActionEvent event) {
+        if (segundos < 60 && segundos > 0) {
+            segundos--;
+            actualizarCronometro();    
+        }                
     }
 }

@@ -39,7 +39,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("primary"), 600, 400);
         stage.setTitle("Temporizador");
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
     
