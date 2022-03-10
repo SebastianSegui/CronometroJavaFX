@@ -171,6 +171,7 @@ public class PrimaryController implements Initializable{
         }
     }
         
+    //Método para iniciar el cronómetro
     @FXML
     private void iniciarCrono(ActionEvent event) {
         cronometro.play();
@@ -204,6 +205,8 @@ public class PrimaryController implements Initializable{
         booleanReiniciar.set(false);
     }
     
+    //Método para activar los botones de subir/bajar los contadores
+    //en un momento determinado del programa.
     private void activarBotones(){
             btnSubirHoras.setDisable(false);
             btnSubirMinutos.setDisable(false);
@@ -213,6 +216,8 @@ public class PrimaryController implements Initializable{
             btnBajarSegundos.setDisable(false); 
     }
     
+    //Método para desactivar los botones de subir/bajar los contadores
+    //en un momento determinado del programa.
     private void desactivarBotones(){
             btnSubirHoras.setDisable(true);
             btnSubirMinutos.setDisable(true);
@@ -237,6 +242,7 @@ public class PrimaryController implements Initializable{
         }catch (Exception ex){ex.printStackTrace();}
     }
 
+    //Eventos OnClick para todos los botones de subir/bajar contadores.
     @FXML
     private void subirHoras(ActionEvent event) {  
         if (horas <= 24) {
