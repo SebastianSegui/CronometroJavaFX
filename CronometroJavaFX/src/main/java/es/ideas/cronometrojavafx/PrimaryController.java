@@ -238,62 +238,84 @@ public class PrimaryController implements Initializable{
     }
 
     @FXML
-    private void subirHoras(ActionEvent event) {
-        if (horas < 24 && horas >= 0) {
-            horas++;
-            actualizarCronometro();    
+    private void subirHoras(ActionEvent event) {  
+        if (horas <= 24) {
+            if (horas == 24){
+                horas = 0;
+            } else {
+                horas++;
+            }          
+            actualizarCronometro();
         } 
-        if (horas == 24 && minutos == 59 && segundos == 59){
-            horas--;
-            actualizarCronometro();    
+        if (horas == 24){
+            minutos = 0;
+            segundos = 0;
+            actualizarCronometro();
         }
     }
 
     @FXML
     private void bajarHoras(ActionEvent event) {
-        if (horas < 25 && horas > 0) {
-            horas--;
-            actualizarCronometro();    
-        } 
+        if (horas <= 24) {
+            if (horas == 0){
+                horas = 24;
+            } else {
+                horas--;
+            }
+            actualizarCronometro();
+        }
+        if (horas == 24){
+            minutos = 0;
+            segundos = 0;
+            actualizarCronometro();
+        }
     }
 
     @FXML
     private void subirMinutos(ActionEvent event) {
-        if (minutos < 59 && minutos >= 0) {
-            minutos++;
-            actualizarCronometro();    
-        }
-        if (horas == 24 && minutos == 59 && segundos == 59){
-            horas--;
-            actualizarCronometro();    
-        }
+        if (horas != 24 && minutos < 60 && minutos >= 0) {
+            if (minutos == 59){
+                minutos = 0;
+            } else {
+                minutos++;
+            }
+            actualizarCronometro();
+        } 
     }
 
     @FXML
     private void bajarMinutos(ActionEvent event) {
-        if (minutos < 60 && minutos > 0) {
-            minutos--;
-            actualizarCronometro();    
-        }        
+        if (horas != 24 && minutos < 60 && minutos >= 0) {
+            if (minutos == 0){
+                minutos = 59;
+            } else {
+                minutos--;
+            }
+            actualizarCronometro();
+        } 
     }
 
     @FXML
     private void subirSegundos(ActionEvent event) {
-        if (segundos < 59 && segundos >= 0) {
-            segundos++;
-            actualizarCronometro();    
-        }
-        if (horas == 24 && minutos == 59 && segundos == 59){
-            horas--;
-            actualizarCronometro();    
-        }        
+        if (horas != 24 && segundos < 60 && segundos >= 0) {
+            if (segundos == 59){
+                segundos = 0;
+            } else {
+                segundos++;
+            }
+            actualizarCronometro();
+        } 
     }
 
     @FXML
     private void bajarSegundos(ActionEvent event) {
-        if (segundos < 60 && segundos > 0) {
-            segundos--;
-            actualizarCronometro();    
-        }                
+        if (horas != 24 && segundos < 60 && segundos >= 0) { 
+            if (segundos == 0){
+                segundos = 59;
+            } else {
+                segundos--;
+            }
+            actualizarCronometro();
+        }   
     }
 }
